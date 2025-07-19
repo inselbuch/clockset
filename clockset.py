@@ -38,8 +38,9 @@ import RPi.GPIO as GPIO
 import time
 
 # press durations in milliseconds
-SHORT = 500
-LONG = 2500
+SHORT = 0.60
+LONG = 2.500
+PAUSE = 0.5
 
 
 PINS = {}
@@ -51,17 +52,24 @@ PINS['down'] = 15
 def initializeGPIO():
    GPIO.setmode(GPIO.BOARD)
    for x in PINS.items():
-      print(x,x[0],x[1])
+      # print(x,x[0],x[1])
       GPIO.setup(x[1],GPIO.OUT)
 
-def setModeMinutes():
+def setModeHours():
    press('set',LONG);
+
+def setModeMinutes():
    press('set',SHORT);
 
+def endSetMode():
+   press('set',SHORT)
+
 def press(pin,duration):
+   print(f'Pressing {pin} for {duration} seconds')
    GPIO.output(PINS[pin],1)
    time.sleep(duration)
    GPIO.output(PINS[pin],0)
+   time.sleep(PAUSE)
 
 def adjustTime(kminutes):
    if kminutes > 0:
@@ -70,7 +78,7 @@ def adjustTime(kminutes):
       pin = 'down'
 
    npresses = abs(kminutes)
-   while npresses >=0:
+   while npresses >0:
       press(pin,SHORT)
       npresses = npresses - 1
 
@@ -78,11 +86,18 @@ def adjustTime(kminutes):
 if __name__ == '__main__':
 
    initializeGPIO()
-   # setModeMinutes()
 
-   press('set',3)
-   press('up',3)
-   press('down',3)
+   setModeHours()
+   adjustTime(1)
+
+   setModeMinutes()
+   adjustTime(-20)
+
+   #press('set',2)
+   #press('up',1)
+   #press('down',1)
+
+   endSetMode()
 
    
 
