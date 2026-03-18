@@ -1,6 +1,3 @@
-
-
-
 #
 #
 #
@@ -9,10 +6,7 @@
 # logic
 #
 # on a schedule
-#	take a picture of the clock face (7-segment display)
-#	use OCR to convert the screen to a set of numbers
-#	convert that to local time
-#	get the actual local time
+#	reboot the clock, time detauls to noon
 #	compute the delta between the clock time and the actual time (in minutes)
 #	advance the clock by delta minutes (negative number retards the clock)
 #
@@ -29,10 +23,8 @@
 #
 # to advance the clock
 #	press the set button for 2 seconds
-#	press the set button 
-
-
-
+#	press the set button
+#
 
 import RPi.GPIO as GPIO
 import time
@@ -82,7 +74,6 @@ def adjustTime(kminutes):
       press(pin,SHORT)
       npresses = npresses - 1
 
-
 if __name__ == '__main__':
 
    initializeGPIO()
@@ -98,9 +89,4 @@ if __name__ == '__main__':
    #press('down',1)
 
    endSetMode()
-
-   
-
-
-
 
