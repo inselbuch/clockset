@@ -8,20 +8,9 @@
 #
 # logic
 #
-# on a schedule
-#	take a picture of the clock face (7-segment display)
-#	use OCR to convert the screen to a set of numbers
-#	convert that to local time
-#	get the actual local time
-#	compute the delta between the clock time and the actual time (in minutes)
-#	advance the clock by delta minutes (negative number retards the clock)
-#
 # button presses
 #	three of the original buttons on the clock were remove
 #	those three buttons, labeled SET, UP and DOWN are now connected to a relay board
-#		SET = Relay 1
-#		UP = Relay 2
-#		DOWN = Relay 3
 #
 #	button presses can be short of long
 #	long press is 2.5 seconds
@@ -30,7 +19,9 @@
 # to advance the clock
 #	press the set button for 2 seconds
 #	press the set button 
-
+#
+#	the original version used the lower level GPIO library
+#	this one uses the easier one, gpiozero
 
 
 from gpiozero import OutputDevice
